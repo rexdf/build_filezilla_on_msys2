@@ -1,0 +1,11 @@
+--- wx3/configure	2015-04-04 17:33:01.000000000 +0800
++++ wx32/configure	2015-04-29 15:46:08.725365300 +0800
+@@ -3797,7 +3797,7 @@
+ 
+ if test "$cross_compiling" != "no"; then
+     HOST_PREFIX="${host_alias}-"
+-    HOST_SUFFIX="-$host_alias"
++    HOST_SUFFIX=""
+ else
+     HOST_PREFIX=
+     HOST_SUFFIX=

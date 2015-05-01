@@ -1,0 +1,11 @@
+--- filezilla/src/include/libfilezilla.h	2015-04-29 15:51:54.153052400 +0800
++++ filezilla/src/include/libfilezilla2.h	2015-04-29 15:52:18.494918600 +0800
+@@ -25,7 +25,7 @@
+ #endif
+ #include <windows.h>
+ #endif
+-
++#include <process.h>
+ #include <wx/datetime.h>
+ #include <wx/event.h>
+ #include <wx/string.h>
