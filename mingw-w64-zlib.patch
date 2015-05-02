@@ -1,0 +1,23 @@
+diff --git a/mingw-w64-zlib/PKGBUILD b/mingw-w64-zlib/PKGBUILD
+index ec4ba9e..dce2153 100644
+--- a/mingw-w64-zlib/PKGBUILD
++++ b/mingw-w64-zlib/PKGBUILD
+@@ -58,7 +58,7 @@ prepare() {
+
+ build() {
+   cd ${srcdir}/${_realname}-${pkgver}
+-  CHOST=${MINGW_CHOST} ./configure --prefix=${MINGW_PREFIX} --shared
++  CHOST=${MINGW_CHOST} ./configure --prefix=${MINGW_PREFIX} --static
+   make -j1 all
+
+   # build minizip
+@@ -66,6 +66,7 @@ build() {
+   autoreconf -fi
+   CFLAGS+=" -DHAVE_BZIP2"
+   ./configure \
++    --disable-shared \
+     --prefix=${MINGW_PREFIX} \
+     --build=${MINGW_CHOST} \
+     --host=${MINGW_CHOST} \
+
+

@@ -15,7 +15,7 @@ if [ ! -d "${PRE_BUILD_PATH}" ]; then
     mkdir "${PRE_BUILD_PATH}"
 fi
 
-export EXTRA_LDFLAGS="-static-libgcc -static-libstdc++ -static"
+export EXTRA_LDFLAGS="-static-libgcc -static-libstdc++"
 
 cd ~
 
@@ -37,9 +37,16 @@ make install
 popd
 rm -rf nettle-2.7.1
 
+#git clone https://github.com/Alexpux/MINGW-packages.git
+#cd MINGW-packages
+#git apply ../mingw-w64-zlib.patch
+#cd mingw-w64-zlib
+#makepkg-mingw -sLf
+tar axvf mingw-w64-i686-zlib-1.2.8-6-any.pkg.tar.xz -C build/ --transform 's,^mingw32/,./,' --strip-components=1
+
 tar xvaf gnutls-3.3.13.tar.xz
 pushd gnutls-3.3.13
-./configure --host=i686-w64-mingw32 --prefix=${PRE_BUILD_PATH} --enable-static --disable-shared GMP_LIBS="-L${PRE_BUILD_PATH}/lib -lgmp" --disable-guile --disable-doc --without-p11-kit --without-tpm --disable-nls --with-included-libtasn1 --without-libintl-prefix CPPFLAGS="-I${PRE_BUILD_PATH}/include" LDFLAGS="-L${PRE_BUILD_PATH}/lib ${EXTRA_LDFLAGS}"
+./configure --host=i686-w64-mingw32 --prefix=${PRE_BUILD_PATH} --enable-static --disable-shared GMP_LIBS="-L${PRE_BUILD_PATH}/lib -lgmp" --disable-guile --disable-doc --without-p11-kit --without-tpm --disable-nls --disable-libdane --with-included-libtasn1 CPPFLAGS="-I${PRE_BUILD_PATH}/include" LDFLAGS="-L${PRE_BUILD_PATH}/lib ${EXTRA_LDFLAGS}"
 make
 make install
 popd
@@ -56,7 +63,7 @@ rm -rf sqlite-autoconf-3080803
 tar axvf wx3.tar.xz
 patch.exe -p0 < wx3_config.patch
 pushd wx3
-./configure --host=i686-w64-mingw32 --prefix=${PRE_BUILD_PATH} --enable-static --disable-shared --enable-unicode   --with-libjpeg=builtin --with-libpng=builtin --with-libtiff=builtin --with-zlib=builtin --with-expat=builtin CPPFLAGS="-I${PRE_BUILD_PATH}/include" LDFLAGS="-L${PRE_BUILD_PATH}/lib ${EXTRA_LDFLAGS}"
+./configure --host=i686-w64-mingw32 --prefix=${PRE_BUILD_PATH} --enable-static --disable-shared --enable-unicode   --with-libjpeg=builtin --with-libpng=builtin --with-libtiff=builtin --with-expat=builtin CPPFLAGS="-I${PRE_BUILD_PATH}/include" LDFLAGS="-L${PRE_BUILD_PATH}/lib ${EXTRA_LDFLAGS}"
 make
 make install
 popd
