@@ -15,9 +15,12 @@ if [ ! -d "${PRE_BUILD_PATH}" ]; then
     mkdir "${PRE_BUILD_PATH}"
 fi
 
-export EXTRA_LDFLAGS="-static"
+export EXTRA_LDFLAGS="-static-libgcc -static-libstdc++ -static"
 
 cd ~
+
+if true;then
+
 tar xvaf gmp-6.0.0a.tar.xz
 pushd gmp-6.0.0
 ./configure --host=i686-w64-mingw32 --prefix=${PRE_BUILD_PATH} --enable-static --disable-shared LDFLAGS="${EXTRA_LDFLAGS}"
@@ -53,19 +56,20 @@ rm -rf sqlite-autoconf-3080803
 tar axvf wx3.tar.xz
 patch.exe -p0 < wx3_config.patch
 pushd wx3
-./configure --host=i686-w64-mingw32 --prefix=${PRE_BUILD_PATH} --enable-static --disable-shared --enable-unicode --with-libpng=builtin CPPFLAGS="-I${PRE_BUILD_PATH}/include" LDFLAGS="-L${PRE_BUILD_PATH}/lib ${EXTRA_LDFLAGS}"
+./configure --host=i686-w64-mingw32 --prefix=${PRE_BUILD_PATH} --enable-static --disable-shared --enable-unicode   --with-libjpeg=builtin --with-libpng=builtin --with-libtiff=builtin --with-zlib=builtin --with-expat=builtin CPPFLAGS="-I${PRE_BUILD_PATH}/include" LDFLAGS="-L${PRE_BUILD_PATH}/lib ${EXTRA_LDFLAGS}"
 make
 make install
 popd
 #exit 0
 rm -rf wx3
 
-
-
 cd ~
 # tar axvf filezilla.tar.xz
 
 patch.exe -p0 < filezilla_libfilezilla_h.patch
+
+fi
+
 pushd filezilla
 autoreconf -i
 ./configure --host=i686-w64-mingw32 --with-tinyxml=builtin --disable-precomp CPPFLAGS="-I${PRE_BUILD_PATH}/include" LDFLAGS="-L${PRE_BUILD_PATH}/lib ${EXTRA_LDFLAGS}"
