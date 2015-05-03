@@ -60,7 +60,7 @@ make install
 popd
 rm -rf sqlite-autoconf-3080803
 
-tar axvf wx3.tar.xz
+# tar axvf wx3.tar.xz
 patch.exe -p0 < wx3_config.patch
 pushd wx3
 ./configure --host=i686-w64-mingw32 --prefix=${PRE_BUILD_PATH} --enable-static --disable-shared --enable-unicode   --with-libjpeg=builtin --with-libpng=builtin --with-libtiff=builtin --with-expat=builtin CPPFLAGS="-I${PRE_BUILD_PATH}/include" LDFLAGS="-L${PRE_BUILD_PATH}/lib ${EXTRA_LDFLAGS}"
