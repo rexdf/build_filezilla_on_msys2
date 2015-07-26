@@ -42,7 +42,7 @@ rm -rf nettle-2.7.1
 #git apply ../mingw-w64-zlib.patch
 #cd mingw-w64-zlib
 #makepkg-mingw -sLf
-tar axvf mingw-w64-i686-zlib-1.2.8-7-any.pkg.tar.xz -C build/ --transform 's,^mingw32/,./,' --strip-components=1
+tar axvf mingw-w64-i686-zlib-1.2.8-8-any.pkg.tar.xz -C build/ --transform 's,^mingw32/,./,' --strip-components=1
 
 tar xvaf gnutls-3.3.13.tar.xz
 pushd gnutls-3.3.13
